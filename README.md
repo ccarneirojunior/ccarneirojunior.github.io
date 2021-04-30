@@ -1,3 +1,3 @@
 # ccarneirojunior.github.io
 
-Different personal/studies projects
+Used for studies 
