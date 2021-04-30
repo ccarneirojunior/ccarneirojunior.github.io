@@ -1,6 +1,331 @@
-<DOCTYPE html>
+<!DOCTYPE html>
+
 <html>
-<head>
-   <p> ADD CONTENT HERE <p> 
-</head>
+  <head>
+    <style>
+      body { 
+        margin: 0; 
+        border: 2px solid #000;
+        width: 650px;
+        height: 690px;
+        }
+      
+  
+    </style>
+  </head>
+  <body>
+    
+    <canvas id="target"></canvas>
+    <div id="instructions"><p>||||||||||||||||||||||||||||||||||||||||||||||||||OBJECTIVE:<b>REACHING THE TOP</b>||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</b></p>
+      
+    </div>
+    <script>
+      const canvas = document.getElementById("target");
+      const context = canvas.getContext("2d");
+      canvas.width = 650;
+      canvas.height = 690;
+
+     // GameObjects Class 
+      class GameObject {
+        constructor(startX, startY, width, height, speedX, speedY) {
+          this.x = startX;
+          this.y = startY;
+          this.width = width;
+          this.height = height;
+          this.speedX = speedX;
+          this.speedY = speedY;
+        }
+
+        update() {
+          if((this.y >= canvas.height) || (this.y <= 0)) {
+            this.speedY = -this.speedY;
+          }
+          if(this.x >= canvas.width || (this.x <= 0)) {
+            this.speedX = -this.speedX;
+          }
+          this.y = this.y + this.speedY;
+          this.x = this.x + this.speedX;
+        }
+
+        
+      }
+      
+      // Asteroid1 
+      class asteroid extends GameObject {
+
+        update() {
+          if((this.y >= canvas.height) || (this.y <= 0)) {
+            this.speedY = -this.speedY;
+          }
+          if(this.x >= canvas.width || (this.x <= 0)) {
+            this.speedX = -this.speedX;
+          }
+          this.y = this.y + this.speedY;
+          this.x = this.x + this.speedX;
+
+          if(((this.x + this.width) > player.x) &&
+             (this.x < (player.x + player.width)) &&
+             ((this.y + this.height) > player.y) &&
+             (this.y < (player.y + player.height))) {
+              window.location.reload();
+          }
+        }
+
+        draw() {
+          context.drawImage(spaceSheet,
+                            10, 
+                            510, 
+                            80, 
+                            110, 
+                            this.x, 
+                            this.y, 
+                            this.width, 
+                            this.height);
+        }
+
+
+      }
+     
+      //End of Asteroid1
+
+        // Asteroid2 
+        class asteroid2 extends GameObject {
+      
+
+      update() {
+        if((this.y >= canvas.height) || (this.y <= 0)) {
+          this.speedY = -this.speedY;
+        }
+        if(this.x >= canvas.width || (this.x <= 0)) {
+          this.speedX = -this.speedX;
+        }
+        this.y = this.y + this.speedY;
+        this.x = this.x + this.speedX;
+
+        if(((this.x + this.width) > player.x) &&
+          (this.x < (player.x + player.width)) &&
+          ((this.y + this.height) > player.y) &&
+          (this.y < (player.y + player.height))) {
+            window.location.reload();
+        }
+      }
+
+      draw() {
+        context.drawImage(spaceSheet,
+                          330, 
+                          545, 
+                          80, 
+                          90, 
+                          this.x, 
+                          this.y, 
+                          this.width, 
+                          this.height);
+      }
+
+
+    }
+ 
+      //End of Asteroid2
+
+       // Enemy ship 1 - Bigger one 
+       class enemy extends GameObject {
+      
+
+      update() {
+        if((this.y >= canvas.height) || (this.y <= 0)) {
+          this.speedY = -this.speedY;
+        }
+        if(this.x >= canvas.width || (this.x <= 0)) {
+          this.speedX = -this.speedX;
+        }
+        this.y = this.y + this.speedY;
+        this.x = this.x + this.speedX;
+
+        if(((this.x + this.width) > player.x) &&
+          (this.x < (player.x + player.width)) &&
+          ((this.y + this.height) > player.y) &&
+          (this.y < (player.y + player.height))) {
+            window.location.reload();
+        }
+      }
+
+      draw() {
+        context.drawImage(spaceSheet,
+                          153, 
+                          156, 
+                          85, 
+                          70, 
+                          this.x, 
+                          this.y, 
+                          this.width, 
+                          this.height);
+      }
+
+
+    }
+ 
+      //End of enemy ship 
+
+      // Enemy ship 2 - smaller and faster 
+
+             class enemy2 extends GameObject {
+      
+
+      update() {
+        if((this.y >= canvas.height) || (this.y <= 0)) {
+          this.speedY = -this.speedY;
+        }
+        if(this.x >= canvas.width || (this.x <= 0)) {
+          this.speedX = -this.speedX;
+        }
+        this.y = this.y + this.speedY;
+        this.x = this.x + this.speedX;
+
+        if(((this.x + this.width) > player.x) &&
+          (this.x < (player.x + player.width)) &&
+          ((this.y + this.height) > player.y) &&
+          (this.y < (player.y + player.height))) {
+            window.location.reload();
+        }
+      }
+
+      draw() {
+        context.drawImage(spaceSheet,
+                          257, 
+                          304, 
+                          35, 
+                          71, 
+                          this.x, 
+                          this.y, 
+                          this.width, 
+                          this.height);
+      }
+
+
+    }
+ 
+      //End of enemy ship 1
+
+
+      //Player 
+      class Player extends GameObject {
+        moveUp() {
+          this.y = this.y - this.speedY;
+          this.frameCounter = 0;
+        }
+
+        moveDown() {
+          this.y = this.y + this.speedY;
+        }
+
+        moveLeft() {
+          this.x = this.x - this.speedX;
+        }
+
+        moveRight() {
+          this.x = this.x + this.speedX;
+        }
+
+        update() {
+
+        }
+
+        draw() {
+          context.drawImage(spaceSheet,
+                            155, 
+                            156, 
+                            85, 
+                            70, 
+                            this.x, 
+                            this.y, 
+                            this.width, 
+                            this.height); 
+        
+        }
+      } 
+     // End of Player 
+
+     //Finish Line 
+      class End extends GameObject {
+        update() {
+          if(((this.x + this.width) > player.x) &&
+             (this.x < (player.x + player.width)) &&
+             ((this.y + this.height) > player.y) &&
+             (this.y < (player.y + player.height))) {
+               window.location.reload()
+            alert('YOU WON!');
+          }
+        }
+
+        draw() {
+          context.beginPath();
+          context.rect(this.x, this.y, this.width, this.height);
+          context.fillStyle = 'black';
+          context.fill();
+          context.lineWidth = 1;
+          context.strokeStyle = 'black';
+          context.stroke();
+        }
+      }
+
+      //End of Finish Line 
+
+      const player = new Player(288, 630, 53, 50, 50, 50);
+      const end = new End (0, 0, 672, 50, 0, 0);
+      const Asteroid = new asteroid (488, 100, 85, 70, 6, 6); 
+      const Asteroid2 = new asteroid2(19, 80, 85, 50, 4, 6); 
+      const Enemy = new enemy (100, 60, 85, 70, 6, 0)
+      const Enemy2 = new enemy2 (500, 500, 45, 40, 8, 0)
+      const gameObjectStorage = [];
+      gameObjectStorage.push(player);
+      gameObjectStorage.push(end);;
+      gameObjectStorage.push(Asteroid);
+      gameObjectStorage.push(Asteroid2);
+      gameObjectStorage.push(Enemy);
+      gameObjectStorage.push(Enemy2);
+
+
+   ;
+
+      function updateScreen() {
+          context.clearRect(0,0,canvas.width,canvas.height);
+
+          for(let i = 0; i < gameObjectStorage.length; i++) {
+            gameObjectStorage[i].update();
+            gameObjectStorage[i].draw();
+        
+          }
+
+          window.requestAnimationFrame(updateScreen);
+      }
+
+      const spaceSheet = new Image();
+      spaceSheet.onload = () => {
+        window.requestAnimationFrame(updateScreen);
+      }
+      spaceSheet.src = 'SpaceSheet.png';
+
+      window.addEventListener('keydown', function(event){
+        switch(event.keyCode) {
+          case 37:
+            player.moveLeft();
+            break;
+          case 38:
+            player.moveUp();
+            break;
+          case 39:
+            player.moveRight();
+            break;
+          case 40:
+            player.moveDown();
+            break;
+          case 32:
+            player.shoot(); 
+            break; 
+            
+        }
+      });
+
+    </script>
+  </body>
 </html>
